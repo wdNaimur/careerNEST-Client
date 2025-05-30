@@ -83,7 +83,7 @@ const SignIn = () => {
         {/* show Error Message from Auth  */}
         <div className="flex gap-2">
           <p>Don't have an account?</p>{" "}
-          <Link className="link link-primary" to="/signUp">
+          <Link className="link link-primary" state={from} to="/signUp">
             Sign Up
           </Link>
         </div>

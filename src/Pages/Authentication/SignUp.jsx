@@ -2,11 +2,15 @@ import React, { useContext, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
 import toast from "react-hot-toast";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import Loader from "../../UI/Loader";
 
 const SignUp = () => {
   const { user, loading, setLoading, createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log("location in sign in page", location);
+  const from = location.state || "/";
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -49,6 +53,7 @@ const SignUp = () => {
             result.user.auth.displayname ? result.user.auth.displayname : "User"
           }`
         );
+        navigate(from);
         console.log({ result });
       })
       .catch((error) => {
@@ -136,7 +141,7 @@ const SignUp = () => {
         )}
         <div className="flex gap-2">
           <p>Already have an account?</p>{" "}
-          <Link className="link link-primary" to="/signIn">
+          <Link className="link link-primary" state={from} to="/signIn">
             Sign In
           </Link>
         </div>
