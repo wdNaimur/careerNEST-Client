@@ -1,0 +1,25 @@
+.loader-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader-data-fetch-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.loader-text {
+  display: flex;
+  gap: 10px;
+}
+
+.loader-letter {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -12px;
+  color: var(--color-primary);
+  opacity: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
