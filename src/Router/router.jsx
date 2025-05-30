@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router";
 import HomeLayout from "../Layouts/HomeLayout";
 import HomePage from "../Pages/HomePage";
-import SignIn from "../Pages/Authentication/SignIn";
 import SignUp from "../Pages/Authentication/SignUp";
-import JobDetails from "../Pages/JobDetails/JobDetails";
+import SignIn from "../Pages/Authentication/SignIn";
+import JobDetailsPage from "../Pages/JobDetailsPage";
 import Loader from "../UI/Loader";
-import JobApply from "../Components/JobApply";
-import PrivateRoute from "../Routes/PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
+import JobApplyPage from "../Pages/JobApplyPage";
+import MyApplicationsPage from "../Pages/MyApplicationsPage";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/jobs/:id",
-        element: <JobDetails />,
+        element: <JobDetailsPage />,
         loader: ({ params }) =>
           fetch(`http://localhost:3000/jobs/${params.id}`),
         hydrateFallbackElement: <Loader />,
@@ -36,7 +37,15 @@ const router = createBrowserRouter([
         path: "/jobApply/:id",
         element: (
           <PrivateRoute>
-            <JobApply />
+            <JobApplyPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/myApplications",
+        element: (
+          <PrivateRoute>
+            <MyApplicationsPage />
           </PrivateRoute>
         ),
       },

@@ -4,8 +4,9 @@ import { AuthContext } from "../contexts/AuthContexts/AuthContext";
 import { use } from "react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+import axios from "axios";
 
-const JobApply = () => {
+const JobApplyPage = () => {
   const { id } = useParams();
   const { user } = use(AuthContext);
   const navigate = useNavigate();
@@ -19,22 +20,15 @@ const JobApply = () => {
     application.userEmail = user.email;
     console.log(application);
     toast.success("Job Applied Successfully");
-    // navigate("/");
-
-    // fetch("https://your-api-endpoint.com/applications", {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(application),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data.insertedId) {
-    //       toast.success("Application submitted!");
-    //       form.reset();
-    //     }
-    //   });
+    axios
+      .post("http://localhost:3000/applications", application)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    navigate("/");
   };
 
   return (
@@ -42,9 +36,9 @@ const JobApply = () => {
       initial={{ opacity: 0.8, y: 20, scale: 0.8 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.3, type: "spring" }}
-      className="container mx-auto px-4 mb-10 font-poppins"
+      className="container mx-auto px-4 py-10 bg-base-20 font-poppins"
     >
-      <div className="relative p-10 space-y-2 my-10 rounded-box bg-base-200">
+      <div className="relative p-10 space-y-2 mb-10 rounded-box bg-base-200">
         <h1 className="text-center mb-2 text-3xl text-primary font-semibold">
           Apply for Job
         </h1>
@@ -146,4 +140,4 @@ const JobApply = () => {
   );
 };
 
-export default JobApply;
+export default JobApplyPage;

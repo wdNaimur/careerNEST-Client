@@ -24,7 +24,8 @@ const Navbar = () => {
   const links = user
     ? [
         { path: "/", label: "Homepage" },
-        { path: "/profile", label: "Profile" },
+        // { path: "/profile", label: "Profile" },
+        { path: "/myApplications", label: "My Applications" },
       ]
     : [{ path: "/", label: "Homepage" }];
   const navLinks = links.map((link) => (

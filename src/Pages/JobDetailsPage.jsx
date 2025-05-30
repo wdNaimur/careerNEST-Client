@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useLoaderData } from "react-router";
 
-const JobDetails = () => {
+const JobDetailsPage = () => {
   const data = useLoaderData();
   const {
     _id,
@@ -21,7 +21,7 @@ const JobDetails = () => {
     document.title = `careerNEST | ${title}`;
   }, [title]);
   return (
-    <div className="container mx-auto px-6 py-10 bg-base-200 shadow-xl rounded-2xl mt-10 space-y-6  text-secondary">
+    <div className="container mx-auto px-4 py-10 bg-base-200 shadow-xl rounded-2xl mt-10 space-y-6  text-secondary">
       {/* Header Section */}
       <div className="flex items-center gap-6 border-b-2 border-dashed border-primary/40 pb-6">
         <img
@@ -98,4 +98,4 @@ const JobDetails = () => {
   );
 };
 
-export default JobDetails;
+export default JobDetailsPage;

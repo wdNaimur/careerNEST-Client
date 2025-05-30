@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Banner from "../Components/Banner";
+import Banner from "../Components/Home/Banner";
 
 import LoaderDataFetch from "../UI/LoaderDataFetch";
-import FeaturedOpportunities from "../Components/FeaturedOpportunities";
+import FeaturedOpportunities from "../Components/Home/FeaturedOpportunities";
 
 const HomePage = () => {
   const [jobs, setJobs] = useState([]);
