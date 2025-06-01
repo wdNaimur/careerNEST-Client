@@ -2,7 +2,7 @@ import React from "react";
 
 const ApplicationStats = () => {
   return (
-    <div className="stats shadow bg-base-200">
+    <div className="flex md:flex-row flex-col justify-center items-center shadow bg-base-200">
       <div className="stat">
         <div className="stat-figure text-primary">
           <svg

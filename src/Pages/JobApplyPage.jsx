@@ -28,7 +28,7 @@ const JobApplyPage = () => {
       .catch(function (error) {
         console.log(error);
       });
-    navigate("/");
+    navigate("/myApplications");
   };
 
   return (
