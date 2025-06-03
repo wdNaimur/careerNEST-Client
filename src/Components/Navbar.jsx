@@ -26,12 +26,13 @@ const Navbar = () => {
         { path: "/", label: "Homepage" },
         // { path: "/profile", label: "Profile" },
         { path: "/myApplications", label: "My Applications" },
+        { path: "/addJobs", label: "Add Jobs" },
       ]
     : [{ path: "/", label: "Homepage" }];
   const navLinks = links.map((link) => (
     <li key={link.path} className="active:bg-white">
       <NavLink
-        className="hover:bg-transparent hover:text-primary  "
+        className="hover:bg-transparent hover:text-primary px-1 "
         to={link.path}
         onClick={() => handleNavClick()}
       >

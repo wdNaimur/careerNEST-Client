@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import { AuthContext } from "../../contexts/AuthContexts/AuthContext";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
-const SingleApplication = ({ application, setApplications }) => {
+const SingleApplication = ({ application, setApplications, index }) => {
   const {
     company_logo,
     company,
@@ -13,13 +13,13 @@ const SingleApplication = ({ application, setApplications }) => {
     description,
     status,
   } = application;
+
   const deleteApplication = () => {
     fetch(`http://localhost:3000/applications/${application._id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.deletedCount) {
           setApplications((prev) =>
             prev.filter((item) => item._id !== application._id)
@@ -27,13 +27,16 @@ const SingleApplication = ({ application, setApplications }) => {
           toast.success("Deleted Successfully");
         }
       })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Failed to Delete");
-      });
+      .catch(() => toast.error("Failed to Delete"));
   };
+
   return (
-    <tr>
+    <motion.tr
+      initial={{ opacity: 0, y: 30, filter: "blur(5px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      exit={{ opacity: 0, y: 30, filter: "blur(5px)" }}
+      transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
+    >
       <td>
         <div className="flex items-center gap-3">
           <div className="avatar">
@@ -47,10 +50,13 @@ const SingleApplication = ({ application, setApplications }) => {
           </div>
         </div>
       </td>
+
       <td className="hidden lg:table-cell max-w-xs truncate">{description}</td>
+
       <td className="hidden sm:table-cell text-center whitespace-nowrap">
         <div className="font-bold">{applicationDeadline}</div>
       </td>
+
       <td className="text-center">
         <span
           className={`inline-flex rounded-md px-2 py-1 text-xs font-medium text-base-200 ${
@@ -60,6 +66,7 @@ const SingleApplication = ({ application, setApplications }) => {
           {status ? "ACTIVE" : "Expired"}
         </span>
       </td>
+
       <td className="text-center">
         <div className="inline-flex gap-2 items-center">
           <Link to={`/jobs/${application.jobId}`} className="link link-primary">
@@ -73,7 +80,7 @@ const SingleApplication = ({ application, setApplications }) => {
           </button>
         </div>
       </td>
-    </tr>
+    </motion.tr>
   );
 };
 

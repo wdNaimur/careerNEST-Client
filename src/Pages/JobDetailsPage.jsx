@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { Link, useLoaderData } from "react-router";
+import { motion, useInView } from "framer-motion";
 
 const JobDetailsPage = () => {
   const data = useLoaderData();
+  const ref = React.useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -100px 0px" });
+
   const {
     _id,
     company_logo,
@@ -21,7 +25,17 @@ const JobDetailsPage = () => {
     document.title = `careerNEST | ${title}`;
   }, [title]);
   return (
-    <div className="container mx-auto px-4">
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40, filter: "blur(6px)", scale: 0.9 }}
+      animate={
+        isInView
+          ? { opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }
+          : { opacity: 0, y: 40, filter: "blur(6px)", scale: 0.9 }
+      }
+      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+      className="container mx-auto px-4"
+    >
       <div className=" px-8 py-10 bg-base-200 shadow-xl rounded-2xl mt-10 space-y-6 text-secondary">
         {/* Header Section */}
         <div className="flex items-center gap-6 border-b-2 border-dashed border-primary/40 pb-6">
@@ -96,7 +110,7 @@ const JobDetailsPage = () => {
           </Link>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
