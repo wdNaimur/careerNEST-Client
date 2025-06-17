@@ -23,7 +23,6 @@ const HomePage = () => {
 
   return (
     <>
-      {/* iOS-style blur animation container */}
       <motion.section
         initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}

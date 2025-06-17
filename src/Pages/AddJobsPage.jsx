@@ -1,10 +1,12 @@
-import React from "react";
+import React, { use } from "react";
 import { useNavigate } from "react-router";
 import { motion, useInView } from "framer-motion";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { AuthContext } from "../contexts/AuthContexts/AuthContext";
 
 const AddJobsPage = () => {
+  const { user } = use(AuthContext);
   const navigate = useNavigate();
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -100px 0px" });
@@ -33,17 +35,18 @@ const AddJobsPage = () => {
       .map((item) => (item == "string" ? item.trim() : item));
     console.log(Object.keys(job).length, job);
 
-    // axios
-    //   .post("http://localhost:3000/jobs", job)
-    //   .then(() => {
-    //     toast.success("Job posted successfully");
-    //     // form.reset();
-    //     // navigate("/jobs");
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //     toast.error("Failed to post job");
-    //   });
+    axios
+      .post("http://localhost:3000/jobs", job)
+      .then((res) => {
+        if (res?.data?.insertedId) {
+          toast.success("Job posted successfully");
+          // form.reset();
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("Failed to post job");
+      });
   };
 
   return (
@@ -58,8 +61,6 @@ const AddJobsPage = () => {
       transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
       className="container mx-auto px-4 py-10 bg-base-20 font-poppins"
     >
-      {/* rest of your code remains unchanged */}
-
       <div className="relative p-10 space-y-2 mb-10 rounded-box bg-base-200">
         <h1 className="text-center mb-2 text-3xl text-primary font-semibold">
           Post a New Job
@@ -136,7 +137,7 @@ const AddJobsPage = () => {
               Application Deadline
             </label>
             <input
-              name="deadline"
+              name="applicationDeadline"
               type="date"
               required
               className="input w-full border-primary/40 focus:outline-primary/50"
@@ -199,8 +200,10 @@ const AddJobsPage = () => {
             <input
               name="hr_email"
               type="email"
+              defaultValue={user.email}
+              readOnly={true}
               required
-              className="input w-full border-primary/40 focus:outline-primary/50"
+              className="input w-full border-primary/40 focus:outline-primary/50 opacity-50"
             />
           </div>
 

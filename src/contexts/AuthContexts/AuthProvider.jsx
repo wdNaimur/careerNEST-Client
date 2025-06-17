@@ -7,6 +7,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../../Firebase/firebase.config.js";
+import axios from "axios";
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -30,8 +31,20 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkUser = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      if (currentUser?.email) {
+        const userData = { email: currentUser.email };
+        axios
+          .post("http://localhost:3000/jwt", userData)
+          .then((res) => {
+            console.log("token after JWT", res.data);
+            const token = res.data.token;
+            localStorage.setItem("token", token);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
       setLoading(false);
-      // console.log("user", currentUser);
     });
     return () => {
       checkUser();
