@@ -27,6 +27,7 @@ const Navbar = () => {
         // { path: "/profile", label: "Profile" },
         { path: "/myApplications", label: "My Applications" },
         { path: "/addJobs", label: "Add Jobs" },
+        { path: "/myPostedJobs", label: "My Posted Jobs" },
       ]
     : [{ path: "/", label: "Homepage" }];
   const navLinks = links.map((link) => (

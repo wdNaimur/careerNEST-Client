@@ -9,7 +9,7 @@ import { myApplicationsPromise } from "../Api/myApplicationsApi";
 const MyApplicationsPage = () => {
   const { user } = use(AuthContext);
   const ref = React.useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "0px 0px -100px 0px" });
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
 
   console.log(user.email);
   return (

@@ -4,34 +4,31 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 
-const SingleApplication = ({ application, setApplications, index }) => {
+const SinglePostedJob = ({ job, setJobs, index }) => {
   const {
+    _id,
     company_logo,
     company,
     title,
     applicationDeadline,
     description,
     status,
-  } = application;
+  } = job;
+  console.log(job);
 
   const deleteApplication = () => {
-    fetch(`http://localhost:3000/applications/${application._id}`, {
+    fetch(`http://localhost:3000/jobs/${_id}`, {
       method: "DELETE",
     })
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((data) => {
         if (data.deletedCount) {
-          setApplications((prev) =>
-            prev.filter((item) => item._id !== application._id)
-          );
+          setJobs((prev) => prev.filter((item) => item._id !== _id));
           toast.success("Deleted Successfully");
         }
       })
       .catch(() => toast.error("Failed to Delete"));
   };
-  if (application.deleted) {
-    return null;
-  }
 
   return (
     <motion.tr
@@ -72,7 +69,7 @@ const SingleApplication = ({ application, setApplications, index }) => {
 
       <td className="text-center">
         <div className="inline-flex gap-2 items-center">
-          <Link to={`/jobs/${application.jobId}`} className="link link-primary">
+          <Link to={`/jobs/${_id}`} className="link link-primary">
             view
           </Link>
           <button
@@ -87,4 +84,4 @@ const SingleApplication = ({ application, setApplications, index }) => {
   );
 };
 
-export default SingleApplication;
+export default SinglePostedJob;
